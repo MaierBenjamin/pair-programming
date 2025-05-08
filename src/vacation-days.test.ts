@@ -10,9 +10,20 @@ test("full year 100% employment gives all vacation days", () => {
   };
   const expected = 25;
 
+  test(" year 40% employment gives all vacation days", () => {
+    // Arrange
+    const fullTime: Employment = {
+      startDate: new Date(Date.parse("2025-01-01 00:00:00+01:00")),
+      untilDate: new Date(Date.parse("2025-12-31 23:59:59+01:00")),
+      percentage: 40,
+      vacationDays: 2.5,
+    };
+    const expected = 25;
+
   // Act
   const actual = calculateProRataVacationDays(fullTime);
 
   // Assert
   expect(actual).toBe(expected);
 });
+
