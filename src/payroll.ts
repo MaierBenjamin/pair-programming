@@ -24,6 +24,23 @@ export type Payslip = {
 
 export function calculatePayslip(salary: Salary): Payslip {
   // TODO: implement
+ const {born, payday, gross } = salary;
+
+ const deductions: Deductions = new Map();
+
+ let age = payday.getFullYear() - born.getFullYear();
+ const birthDayThisYear = new Date(payday.getFullYear())
+if (payday < birthDayThisYear)
+{
+  age--;
+}
+
+  const annualGross = gross * 12;
+
+  for (const [name, rate] of DEDUCTION_RATES.entries()) {
+    
+  }
+
   const result: Payslip = {
     salary: salary,
     deductions: new Map(),
