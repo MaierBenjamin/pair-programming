@@ -38,7 +38,19 @@ if (payday < birthDayThisYear)
   const annualGross = gross * 12;
 
   for (const [name, rate] of DEDUCTION_RATES.entries()) {
-    
+    if (["AHV", "IV", "EO"].includes(name)) {
+      if (age >= 17) {
+        deductions.set(name, +(gross * (rate / 100)).toFixed(2));
+      } else if (["ALV", "NBU"].includes(name)) {
+        if (annualGross >= 2500) {
+          deductions.set(name, +(gross * (rate / 100)).toFixed(2));
+        } else if (["PK"].includes(name)) {
+          if (annualGross >= 22680) {
+            deductions.set(name, +(gross * (rate / 100)).toFixed(2));
+          }
+        }
+      }
+    }
   }
 
   const result: Payslip = {
